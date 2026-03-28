@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "title": "Welcome To My Blog",
+    "date": "2026-03-28",
+    "tags": [
+      "welcome"
+    ],
+    "excerpt": "Just a simple welcome post to get things started.",
+    "url": "posts/2026-03-28-welcome-to-my-blog.html"
+  }
+]
