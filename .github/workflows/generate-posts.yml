@@ -1,0 +1,42 @@
+# .github/workflows/generate-posts.yml
+#
+# Runs whenever an HTML file in posts/ is added or changed.
+# Regenerates posts.json and commits it back to the repo.
+
+name: Generate Posts Index
+
+on:
+  push:
+    paths:
+      - 'posts/**.html'
+
+  # Allow manual triggering from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run generate-posts script
+        run: node scripts/generate-posts.js
+
+      - name: Commit and push posts.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add posts.json
+          # Only commit if posts.json actually changed
+          git diff --staged --quiet || git commit -m "chore: regenerate posts.json"
+          git push
