@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gwynne Michele</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="site-wrapper">
+
+    <!-- ══ Sidebar ══════════════════════════════════════════════ -->
+    <aside class="sidebar">
+
+      <div class="sidebar-brand">
+        <a href="index.html" style="text-decoration:none;">
+          <span class="site-title">Gwynne Michele</span>
+          <span class="site-subtitle">The Curious Hermit</span>
+        </a>
+      </div>
+
+      <!-- Navigation -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Navigate</div>
+        <nav class="sidebar-nav">
+          <a href="index.html" class="nav-active">Home</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="blog.html">Blog</a>
+          <a href="https://gwynnemichele.substack.com" target="_blank" rel="noopener">Substack</a>
+          <a href="about.html">About</a>
+        </nav>
+      </div>
+
+      <!-- About blurb -->
+      <div class="sidebar-section sidebar-about">
+        <div class="sidebar-section-label">About</div>
+        <p>Contemplative practitioner, writer, and builder of small digital things. Somewhere between the monastery and the terminal.</p>
+      </div>
+
+      <!-- Recent posts — populated by sidebar.js -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Recent Blog Posts</div>
+        <ul class="recent-posts-list" id="sidebar-recent-posts">
+          <li><span class="post-date">Loading…</span></li>
+        </ul>
+      </div>
+
+      <!-- Substack -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Newsletter</div>
+        <a class="substack-badge" href="https://gwynnemichele.substack.com" target="_blank" rel="noopener">
+          <svg class="substack-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="4" fill="#FF6719"/>
+            <path d="M19.5 7.5H4.5V9H19.5V7.5Z" fill="white"/>
+            <path d="M4.5 11.25V19.5L12 15.75L19.5 19.5V11.25H4.5Z" fill="white"/>
+            <path d="M19.5 4.5H4.5V6H19.5V4.5Z" fill="white"/>
+          </svg>
+          <span>The Curious Hermit</span>
+        </a>
+      </div>
+
+      <!-- Social links -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Elsewhere</div>
+        <div class="social-links">
+          <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
+          <a class="social-link" href="#" target="_blank" rel="noopener">Threads</a>
+          <a class="social-link" href="#" target="_blank" rel="noopener">Facebook</a>
+          <a class="social-link" href="#" target="_blank" rel="noopener">Farcaster</a>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ══ Main ══════════════════════════════════════════════════ -->
+    <main class="main-content" id="home">
+
+      <!-- Page header -->
+      <header class="page-header">
+        <h1>Gwynne Michele</h1>
+        <h2>The Curious Hermit</h2>
+        <p class="tagline">Writer, contemplative, accidental developer.</p>
+      </header>
+
+      <!-- Intro -->
+      <div class="intro">
+        <p>
+          I write about the sacred, the simulated, and the strange. My work lives at the intersection of
+          philosophy, theology, and technology — where Baudrillard meets the desert fathers and someone
+          is definitely building an app about it.
+        </p>
+        <p>
+          This is my home on the web: a place for projects, essays, and whatever I am currently
+          obsessing over.
+        </p>
+      </div>
+
+      <!-- Projects -->
+      <section class="section" id="projects">
+        <h2 class="section-heading">Projects</h2>
+        <div class="card-grid">
+
+          <div class="card">
+            <div class="card-title">Simple Human</div>
+            <div class="card-divider"></div>
+            <p class="card-desc">A sci-fi novel exploring AI, uploaded consciousness, and what it means to remain human.</p>
+            <span class="card-tag">In Progress</span>
+          </div>
+
+          <div class="card">
+            <div class="card-title">The Curious Hermit</div>
+            <div class="card-divider"></div>
+            <p class="card-desc">Essays and reflections published on Substack on a dana model — freely given, freely received.</p>
+            <a class="card-link" href="https://gwynnemichele.substack.com" target="_blank" rel="noopener">Read →</a>
+          </div>
+
+          <div class="card">
+            <div class="card-title">PlotWeaver</div>
+            <div class="card-divider"></div>
+            <p class="card-desc">An Electron-based novel plotting app built with the features I want so I'll actually use it.</p>
+            <span class="card-tag">In Progress</span>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Horarium</div>
+            <div class="card-divider"></div>
+            <p class="card-desc">A monastic-inspired daily awareness tool for balancing deadlines with hyperfixation-driven creative work.</p>
+            <a class="card-link" href="#" target="_blank" rel="noopener">View →</a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Writing -->
+      <section class="section" id="writing">
+        <h2 class="section-heading">Blog</h2>
+        <ul class="post-list" id="home-post-list">
+          <li class="post-item post-loading">
+            <span class="date">—</span>
+            <span class="post-arrow">»</span>
+            <span>Loading…</span>
+          </li>
+        </ul>
+        <a class="all-posts-link" href="blog.html">All posts →</a>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ══ Footer ════════════════════════════════════════════════ -->
+  <footer>
+    <span>Gwynne Michele · GwynneMichele.me</span>
+    <span>built with intention &amp; plain html</span>
+  </footer>
+
+  <script src="scripts/sidebar.js"></script>
+  <script>
+    // Populate the homepage recent posts list (5 most recent)
+    (async () => {
+      const el = document.getElementById('home-post-list');
+      if (!el) return;
+      try {
+        const res   = await fetch('posts.json');
+        if (!res.ok) throw new Error();
+        const posts = await res.json();
+        const recent = posts.slice(0, 5);
+        if (recent.length === 0) {
+          el.innerHTML = '<li class="post-item"><span>No posts yet.</span></li>';
+          return;
+        }
+        el.innerHTML = recent.map(p => `
+          <li class="post-item">
+            <span class="date">${p.date}</span>
+            <span class="post-arrow">»</span>
+            <a href="${p.url}">${p.title}</a>
+          </li>
+        `).join('');
+      } catch {
+        el.innerHTML = '<li class="post-item"><span>—</span></li>';
+      }
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing · Gwynne Michele</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+  <div class="site-wrapper">
+
+    <!-- ══ Sidebar ══════════════════════════════════════════════ -->
+    <aside class="sidebar">
+
+      <div class="sidebar-brand">
+        <a href="index.html" style="text-decoration:none;">
+          <span class="site-title">Gwynne Michele</span>
+          <span class="site-subtitle">The Curious Hermit</span>
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Navigate</div>
+        <nav class="sidebar-nav">
+          <a href="index.html">Home</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="blog.html" class="nav-active">Writing</a>
+          <a href="https://gwynnemichele.substack.com" target="_blank" rel="noopener">Substack</a>
+          <a href="about.html">About</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-section sidebar-about">
+        <div class="sidebar-section-label">About</div>
+        <p>Contemplative practitioner, writer, and builder of small digital things. Somewhere between the monastery and the terminal.</p>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Recent Writing</div>
+        <ul class="recent-posts-list" id="sidebar-recent-posts">
+          <li><span class="post-date">Loading…</span></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Newsletter</div>
+        <a class="substack-badge" href="https://gwynnemichele.substack.com" target="_blank" rel="noopener">
+          <svg class="substack-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="4" fill="#FF6719"/>
+            <path d="M19.5 7.5H4.5V9H19.5V7.5Z" fill="white"/>
+            <path d="M4.5 11.25V19.5L12 15.75L19.5 19.5V11.25H4.5Z" fill="white"/>
+            <path d="M19.5 4.5H4.5V6H19.5V4.5Z" fill="white"/>
+          </svg>
+          <span>The Curious Hermit</span>
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Elsewhere</div>
+        <div class="social-links">
+          <a class="social-link" href="#" target="_blank" rel="noopener">GitHub</a>
+          <a class="social-link" href="#" target="_blank" rel="noopener">Threads</a>
+          <a class="social-link" href="#" target="_blank" rel="noopener">Facebook</a>
+          <a class="social-link" href="#" target="_blank" rel="noopener">Farcaster</a>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ══ Main ══════════════════════════════════════════════════ -->
+    <main class="main-content">
+
+      <header class="page-header">
+        <h1>Writing</h1>
+        <p class="tagline">Essays on the sacred, the simulated, and the strange.</p>
+      </header>
+
+      <!-- Tag filter bar — populated by JS -->
+      <div class="blog-filters" id="tag-filters" aria-label="Filter by tag"></div>
+
+      <!-- Post list — populated by JS -->
+      <ul class="post-list" id="post-list">
+        <li class="post-item post-loading">
+          <span class="date">—</span>
+          <span class="post-arrow">»</span>
+          <span>Loading posts…</span>
+        </li>
+      </ul>
+
+      <p class="blog-empty" id="blog-empty" hidden>No posts found.</p>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>Gwynne Michele · GwynneMichele.me</span>
+    <span>built with intention &amp; plain html</span>
+  </footer>
+
+  <script>
+    // ── Config ──────────────────────────────────────────────────
+    const POSTS_JSON    = 'posts.json';
+    const SIDEBAR_COUNT = 3;
+
+    // ── State ───────────────────────────────────────────────────
+    let allPosts     = [];
+    let activeTag    = null;
+
+    // ── Fetch & boot ────────────────────────────────────────────
+    async function init() {
+      try {
+        const res = await fetch(POSTS_JSON);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        allPosts = await res.json();
+      } catch (err) {
+        console.error('Could not load posts.json:', err);
+        document.getElementById('post-list').innerHTML =
+          '<li class="post-item"><span>Could not load posts.</span></li>';
+        return;
+      }
+
+      renderSidebar();
+      renderTagFilters();
+      renderPosts();
+    }
+
+    // ── Sidebar recent posts ─────────────────────────────────────
+    function renderSidebar() {
+      const el    = document.getElementById('sidebar-recent-posts');
+      const posts = allPosts.slice(0, SIDEBAR_COUNT);
+
+      if (posts.length === 0) {
+        el.innerHTML = '<li><span class="post-date">No posts yet.</span></li>';
+        return;
+      }
+
+      el.innerHTML = posts.map(p => `
+        <li>
+          <a href="${p.url}">${p.title}</a>
+          <span class="post-date">${p.date}</span>
+        </li>
+      `).join('');
+    }
+
+    // ── Tag filter bar ───────────────────────────────────────────
+    function renderTagFilters() {
+      const el   = document.getElementById('tag-filters');
+      const tags = [...new Set(allPosts.flatMap(p => p.tags))].sort();
+
+      if (tags.length === 0) { el.hidden = true; return; }
+
+      const allBtn = `<button class="tag-filter tag-filter-active" data-tag="">All</button>`;
+      const tagBtns = tags.map(t =>
+        `<button class="tag-filter" data-tag="${t}">${t}</button>`
+      ).join('');
+
+      el.innerHTML = allBtn + tagBtns;
+
+      el.addEventListener('click', e => {
+        const btn = e.target.closest('.tag-filter');
+        if (!btn) return;
+
+        activeTag = btn.dataset.tag || null;
+
+        el.querySelectorAll('.tag-filter').forEach(b =>
+          b.classList.toggle('tag-filter-active', b === btn)
+        );
+
+        renderPosts();
+      });
+    }
+
+    // ── Post list ────────────────────────────────────────────────
+    function renderPosts() {
+      const list  = document.getElementById('post-list');
+      const empty = document.getElementById('blog-empty');
+
+      const filtered = activeTag
+        ? allPosts.filter(p => p.tags.includes(activeTag))
+        : allPosts;
+
+      if (filtered.length === 0) {
+        list.innerHTML = '';
+        empty.hidden   = false;
+        return;
+      }
+
+      empty.hidden   = true;
+      list.innerHTML = filtered.map(p => `
+        <li class="post-item">
+          <span class="date">${p.date}</span>
+          <span class="post-arrow">»</span>
+          <div class="post-item-body">
+            <a href="${p.url}">${p.title}</a>
+            ${p.excerpt ? `<p class="post-excerpt">${p.excerpt}</p>` : ''}
+            ${p.tags.length ? `
+              <div class="post-item-tags">
+                ${p.tags.map(t =>
+                  `<button class="tag-filter post-inline-tag" data-tag="${t}">${t}</button>`
+                ).join('')}
+              </div>` : ''}
+          </div>
+        </li>
+      `).join('');
+
+      // Inline tag clicks also filter
+      list.querySelectorAll('.post-inline-tag').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeTag = btn.dataset.tag;
+          document.querySelectorAll('.tag-filter').forEach(b =>
+            b.classList.toggle('tag-filter-active', b.dataset.tag === activeTag)
+          );
+          renderPosts();
+        });
+      });
+    }
+
+    init();
+  </script>
+
+</body>
+</html>
